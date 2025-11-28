@@ -1,0 +1,720 @@
+{
+  "name": "School SCP platform",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n    const Maths = parseFloat(item.json.Maths || 0);\n    const Physics = parseFloat(item.json.Physics || 0);\n    const Science = parseFloat(item.json.Science || 0);\n\n    const full_mark = (Maths + Physics + Science) / 3;\n\n    return {\n        json: {\n            Maths,\n            Physics,\n            Science,\n            full_mark: Number(full_mark.toFixed(2)) // ensures it's a number\n        }\n    };\n});\n\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -416,
+        160
+      ],
+      "id": "9b3885e1-814d-4e2c-9f44-68fdb7d5d918",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "formTitle": "Students Card",
+        "formDescription": "Welcome to the student Card Platform the SCP, please fill in the form with the correct information as well as your marks, thank you",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Full name"
+            },
+            {
+              "fieldLabel": "Level",
+              "fieldType": "checkbox",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "HighSchool"
+                  },
+                  {
+                    "option": "MiddleSchool"
+                  },
+                  {
+                    "option": "PrimarySchool"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Maths",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Physics",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Science",
+              "fieldType": "number",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -656,
+        160
+      ],
+      "id": "d0edb590-6594-4555-87f3-026556be6eca",
+      "name": "On form submission",
+      "webhookId": "0b539c43-14d9-4827-8ae2-5a54529385f3"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1eJ_3iQKkbE_C-eubyU6OGhi8hrEdzpcapwIXdBetvhU",
+          "mode": "list",
+          "cachedResultName": "students-notes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1eJ_3iQKkbE_C-eubyU6OGhi8hrEdzpcapwIXdBetvhU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "stu-notes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1eJ_3iQKkbE_C-eubyU6OGhi8hrEdzpcapwIXdBetvhU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "name": "={{ $('On form submission').item.json['Full name'] }}",
+            "class": "={{ $('On form submission').item.json.Level }}",
+            "maths": "={{ $json.output.Maths }}",
+            "science": "={{ $json.output.Science }}",
+            "physics": "={{ $json.output.Physics }}",
+            "full mark": "={{ $json.output.full_mark }}",
+            "ID": "={{ $('On form submission').item.json.submittedAt }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "class",
+              "displayName": "class",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "maths",
+              "displayName": "maths",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "science",
+              "displayName": "science",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "physics",
+              "displayName": "physics",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "full mark",
+              "displayName": "full mark",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "final decision",
+              "displayName": "final decision",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        240,
+        160
+      ],
+      "id": "792f1f96-17a4-4416-9497-389bd4675f16",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "pugUN5zGR1nQBsll",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1d6d6dfa-bcbe-4b6a-9043-4e986e16dc81",
+              "leftValue": "={{ $json['full mark'] }}",
+              "rightValue": 10,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        480,
+        160
+      ],
+      "id": "af1eea91-455b-4413-bb8a-b5593cb4d0f1",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sendTo": "raniahamadache1@gmail.com",
+        "subject": "Final Academic Results",
+        "emailType": "text",
+        "message": "=Dear {{ $('On form submission').item.json['Full name'] }},\nI hope you are doing well.We have completed the evaluation of your academic performance for this school year. \nBelow are your final marks: \nMathematics:{{ $('On form submission').item.json.Maths }}, \nPhysics: {{ $('On form submission').item.json.Physics }},\nScience:{{ $('If').item.json.science }}, \nFinal : {{ $('Code in JavaScript').item.json.full_mark }} /20 \nAfter review, the final decision for this year is: {{ $json['final decision'] }}.\nIf you have any questions regarding your results or would like to discuss improvement strategies for next year, please feel free to reply to this email.We wish you the best in your academic journey.\n\n\nKind regards, ",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1024,
+        160
+      ],
+      "id": "add1dab0-25d7-4890-939c-420ea7d964ef",
+      "name": "Send a message",
+      "webhookId": "8b9da0f1-ce7b-4bb5-887e-0858129407c4",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Ys74NdTTYNcKbLpd",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1eJ_3iQKkbE_C-eubyU6OGhi8hrEdzpcapwIXdBetvhU",
+          "mode": "list",
+          "cachedResultName": "students-notes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1eJ_3iQKkbE_C-eubyU6OGhi8hrEdzpcapwIXdBetvhU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "stu-notes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1eJ_3iQKkbE_C-eubyU6OGhi8hrEdzpcapwIXdBetvhU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "final decision": "Admitted",
+            "row_number": 0,
+            "ID": "={{ $json.ID }}"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "class",
+              "displayName": "class",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "maths",
+              "displayName": "maths",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "science",
+              "displayName": "science",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "physics",
+              "displayName": "physics",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "full mark",
+              "displayName": "full mark",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "final decision",
+              "displayName": "final decision",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        736,
+        80
+      ],
+      "id": "4695b771-92ef-402b-85b3-70b08d6e80ed",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "pugUN5zGR1nQBsll",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1eJ_3iQKkbE_C-eubyU6OGhi8hrEdzpcapwIXdBetvhU",
+          "mode": "list",
+          "cachedResultName": "students-notes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1eJ_3iQKkbE_C-eubyU6OGhi8hrEdzpcapwIXdBetvhU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "stu-notes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1eJ_3iQKkbE_C-eubyU6OGhi8hrEdzpcapwIXdBetvhU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "final decision": "Not Admitted",
+            "ID": "={{ $('Append row in sheet').item.json.ID }}"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "class",
+              "displayName": "class",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "maths",
+              "displayName": "maths",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "science",
+              "displayName": "science",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "physics",
+              "displayName": "physics",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "full mark",
+              "displayName": "full mark",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "final decision",
+              "displayName": "final decision",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        752,
+        272
+      ],
+      "id": "7b7d6c49-e5ff-456b-86ae-3d5af78ee562",
+      "name": "Update row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "pugUN5zGR1nQBsll",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Full name:{{ $('On form submission').item.json['Full name'] }}\nLevel:{{ $('On form submission').item.json.Level }}\nMaths: {{ $json.Maths }}\nPhysics:{{ $json.Physics }}\nScience:{{ $json.Science }}\nfull mark:{{ $json.full_mark }}\n\n",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "You are a helpful school assistant AI. Your tasks are:\n\n1. Read the student information exactly as provided from the form or sheet.\n2. Correctly calculate the full mark score from their subject marks.\n3. Keep all names, numbers, and details accurate with no modifications.\n4. Respond only with clean and structured information that can be stored back into the sheet.\n5. Your only task is to return the marks EXACTLY as received and calculate the average full mark. DO NOT CHANGE THE RESULTS"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        -208,
+        160
+      ],
+      "id": "e7c2a1a4-e165-4df5-a4f9-ce98e74eb2e5",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatMistralCloud",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        368
+      ],
+      "id": "07683086-54d4-48f3-9a7a-3a1da7d1d306",
+      "name": "Mistral Cloud Chat Model",
+      "credentials": {
+        "mistralCloudApi": {
+          "id": "sGFtSydeRouzENIH",
+          "name": "Mistral Cloud account 5"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        -128,
+        400
+      ],
+      "id": "8999b161-5886-44af-a5e7-78fde4535b3f",
+      "name": "Calculator"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "\n{\n  \"Maths\": \"\",\n  \"Physics\": \"\",\n  \"Science\": \"\",\n  \"full_mark\": \"\"\n}\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        16,
+        400
+      ],
+      "id": "4918709e-b347-47fe-bea1-a1f557dee6c4",
+      "name": "Structured Output Parser"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mistral Cloud Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "73ab3365-0849-45a9-8c28-d708957a3c5f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0d36ecd75d9f48908c2d053069865919698b5d2342e80783bce3ed2071146d79"
+  },
+  "id": "A1utftAZHU0rgbdX",
+  "tags": []
+}
