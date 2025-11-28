@@ -1,0 +1,338 @@
+{
+  "name": "Emotional Support chat model",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -576,
+        -48
+      ],
+      "id": "c436fe04-05a6-4d3e-a6d5-329c07538b83",
+      "name": "Telegram Trigger",
+      "webhookId": "5148cd56-3faf-4ccc-8ce3-e8773f824403",
+      "credentials": {
+        "telegramApi": {
+          "id": "NXFAPVmAeFODX25Q",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "pixtral-large-latest",
+        "options": {
+          "temperature": 0.9
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatMistralCloud",
+      "typeVersion": 1,
+      "position": [
+        400,
+        0
+      ],
+      "id": "c618ca07-bae8-4c43-b643-87918dbb5710",
+      "name": "Mistral Cloud Chat Model",
+      "credentials": {
+        "mistralCloudApi": {
+          "id": "WMTJTBhbEVq0r8sJ",
+          "name": "Mistral Cloud account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{ \"output\": \"this should be your answer\" }"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        672,
+        16
+      ],
+      "id": "c5be2b38-42b4-4064-9688-48368de9a74c",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.message.text }}\n{{ $json.text }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        528,
+        16
+      ],
+      "id": "2ea991f2-c823-44cb-8dc4-1bd00a92ada3",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        912,
+        -208
+      ],
+      "id": "4ba11f4f-37be-4384-963d-fe7f819fc3a2",
+      "name": "Send a text message",
+      "webhookId": "243af749-ff26-4793-acb4-f5010489033c",
+      "credentials": {
+        "telegramApi": {
+          "id": "NXFAPVmAeFODX25Q",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}\n\n{{ $json.text }}\n",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "You are an empathetic emotional-support AI whose purpose is to help people talk about their problems in a warm, human, and friendly way.\nAlways speak gently, kindly, and respectfully. Make the user feel safe, understood, and never judged.\n\nYour communication style should follow these rules:\n\nBe very human and relatable. Use natural language, warm tones, and simple explanations.\n\nShow deep empathy. Acknowledge feelings, validate emotions, and respond with genuine care:\n\n“I’m really glad you shared that with me.”\n\n“That sounds really heavy, I’m here with you.”\n\n“It makes sense you feel this way.”\n\nAsk soft, open questions to help them express themselves, but never pressure them.\n\nBe supportive, not clinical. Avoid medical diagnosis or professional claims.\n\nGive clear, gentle guidance when asked for advice, but let the user stay in control.\n\nNever dismiss their emotions.\n\nStay calm and reassuring even if the user is upset or confused.\n\nSpeak like a friend who listens deeply while staying respectful and grounded.\n\nEncourage self-compassion and remind the user of their strength when appropriate.\n\nKeep the conversation safe and positive, avoiding harmful or judgmental content.\n\nYour goal is to make the user feel heard, supported, and never alone.\nAlways remember: kindness first, understanding second, guidance third.\nPlease output in Json format:\n{ \"output\": \"this should be your answer\" }"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        496,
+        -208
+      ],
+      "id": "78b406ee-5214-4551-ae58-e779391754b1",
+      "name": "Emotional Support Agent"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7bfa9e77-7fca-4666-9921-181fe52054dc",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -272,
+        -48
+      ],
+      "id": "f8aa3cd8-c7c7-4349-b093-e6dcbb97f9e0",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "resource": "speech",
+        "operation": "speechToText",
+        "additionalOptions": {},
+        "requestOptions": {}
+      },
+      "type": "@elevenlabs/n8n-nodes-elevenlabs.elevenLabs",
+      "typeVersion": 1,
+      "position": [
+        144,
+        32
+      ],
+      "id": "52e15a33-f634-4bc2-b1b5-8c1812dd3e4d",
+      "name": "Transcribe audio or video",
+      "credentials": {
+        "elevenLabsApi": {
+          "id": "nIYRkF5uswvcxi1x",
+          "name": "ElevenLabs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $json.message.voice.file_id }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -48,
+        32
+      ],
+      "id": "e2fca591-094a-4cb0-b235-cf84b1efae05",
+      "name": "Get a file",
+      "webhookId": "7f6d7127-645f-4718-bdef-7d0064c6b4b2",
+      "credentials": {
+        "telegramApi": {
+          "id": "NXFAPVmAeFODX25Q",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        0,
+        -224
+      ],
+      "id": "f61a41bc-9f03-4d32-9d2f-d833f1ca26f4",
+      "name": "Merge"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mistral Cloud Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Emotional Support Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Emotional Support Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Emotional Support Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Emotional Support Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Emotional Support Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transcribe audio or video": {
+      "main": [
+        [
+          {
+            "node": "Emotional Support Agent",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Get a file": {
+      "main": [
+        [
+          {
+            "node": "Transcribe audio or video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Emotional Support Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e617037c-1fcc-4c80-b7ea-1902902047ac",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0d36ecd75d9f48908c2d053069865919698b5d2342e80783bce3ed2071146d79"
+  },
+  "id": "uarRi5lsUPn6SyHQ",
+  "tags": []
+}
