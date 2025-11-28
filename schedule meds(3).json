@@ -1,0 +1,1245 @@
+{
+  "name": "schedule meds",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5db5261b-26f7-47e7-86e6-169784396095",
+              "leftValue": "=\n{{ $json.message.text }}",
+              "rightValue": "done",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -432,
+        -368
+      ],
+      "id": "c3c77ef1-c10a-437f-a33e-951c7a857e96",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1fgclXB2kRdmicfOvOT87pFt8RW3T3NCkSST15YiyfIM",
+          "mode": "list",
+          "cachedResultName": "patients_meds",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fgclXB2kRdmicfOvOT87pFt8RW3T3NCkSST15YiyfIM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fgclXB2kRdmicfOvOT87pFt8RW3T3NCkSST15YiyfIM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Done": "undone",
+            "Date": "={{ $json.currentDate }}"
+          },
+          "matchingColumns": [
+            "Date"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Age",
+              "displayName": "Age",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "name_meds",
+              "displayName": "name_meds",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "dose",
+              "displayName": "dose",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "instrustions ",
+              "displayName": "instrustions ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Done",
+              "displayName": "Done",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -224,
+        -160
+      ],
+      "id": "90dae55d-3a7a-4ade-981b-3cccf04fd2a6",
+      "name": "Update row in sheet1",
+      "executeOnce": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "pugUN5zGR1nQBsll",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## SCHEDULE\n3 triggers to run 3 time a day ",
+        "height": 608,
+        "width": 374,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2032,
+        -624
+      ],
+      "typeVersion": 1,
+      "id": "2df62350-f02a-4876-b0de-e03a284e77a6",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Data  \nmanaging and filtering  data  ",
+        "height": 608,
+        "width": 256,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1664,
+        -624
+      ],
+      "typeVersion": 1,
+      "id": "4bdd0eff-2ad1-40ee-8c4c-447e57554baf",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## TELEGRAM\nSend a message, extract date, Sheet",
+        "height": 608,
+        "width": 662,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1408,
+        -624
+      ],
+      "typeVersion": 1,
+      "id": "76aaebc3-3684-4375-b694-917bd4f5fa5e",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## Reading the message \ngetting the nurse's reply\nwaiting for  5min for the nurse's reply",
+        "height": 608,
+        "width": 272,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -752,
+        -624
+      ],
+      "id": "5c02a381-89cf-431d-b1f6-cc4170487a2f",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "jsCode": "const elders = [\n  {\n    name: \"John Smith\",\n    age: 78,\n    medications: [\n      { name_meds: \"Aspirin\", dose: \"100mg\", instructions: \"Take one tablet after breakfast\" },\n      { name_meds: \"Metformin\", dose: \"500mg\", instructions: \"Take one tablet after lunch\" },\n      { name_meds: \"Atorvastatin\", dose: \"20mg\", instructions: \"Take one tablet before bed\" }\n    ]\n  },\n  {\n    name: \"Mary Johnson\",\n    age: 82,\n    medications: [\n      { name_meds: \"Lisinopril\", dose: \"10mg\", instructions: \"Take one tablet before breakfast\" },\n      { name_meds: \"Amlodipine\", dose: \"5mg\", instructions: \"Take one tablet before bed\" },\n      { name_meds: \"Vitamin D\", dose: \"1000 IU\", instructions: \"Take after lunch\" }\n    ]\n  },\n  {\n    name: \"Ahmed Benali\",\n    age: 75,\n    medications: [\n      { name_meds: \"Omeprazole\", dose: \"20mg\", instructions: \"Take before breakfast\" },\n      { name_meds: \"Aspirin\", dose: \"75mg\", instructions: \"Take one tablet after lunch\" },\n      { name_meds: \"Atorvastatin\", dose: \"10mg\", instructions: \"Take one tablet before bed\" }\n    ]\n  }\n];\n\n// Flatten: one output per medication\nconst rows = [];\n\nfor (const elder of elders) {\n  for (const med of elder.medications) {\n    rows.push({\n      json: {\n        Name: elder.name,\n        Age: elder.age,\n        Medication: med.name_meds,\n        Dose: med.dose,\n        Instructions: med.instructions,\n        Status: \"unchecked\"\n      }\n    });\n  }\n}\n\nreturn rows;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1792,
+        -352
+      ],
+      "id": "11117ecd-c914-465b-9904-57e590154233",
+      "name": "Code in JavaScript3"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "bdde9d15-213f-41bc-8c4e-dcc97c43634d",
+              "leftValue": "={{ $json.Instructions }}",
+              "rightValue": "breakfast",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -1600,
+        -496
+      ],
+      "id": "e2900fde-19f1-478e-9426-9218337d85ae",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "bdde9d15-213f-41bc-8c4e-dcc97c43634d",
+              "leftValue": "={{ $json.Instructions }}",
+              "rightValue": "lunch",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -1600,
+        -352
+      ],
+      "id": "6b163366-3aa9-453e-a328-f45304003dd9",
+      "name": "Filter1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "bdde9d15-213f-41bc-8c4e-dcc97c43634d",
+              "leftValue": "={{ $json.Instructions }}",
+              "rightValue": "bed",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -1600,
+        -192
+      ],
+      "id": "be9f33d4-7484-41b6-9f80-c896c19a625e",
+      "name": "Filter2"
+    },
+    {
+      "parameters": {
+        "chatId": "5818216058",
+        "text": "=Patient: {{ $json.Name }} \nAge: {{ $json.Age }} \nMedication: {{ $json.name_meds }}\nDose:{{ $json.dose }}\nInstructions:{{ $json['instrustions '] }}\nPlease reply with ‘Done’ once the task is completed.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -688,
+        -352
+      ],
+      "id": "15788740-4b77-43d0-a6ed-aa1d010db4c3",
+      "name": "Send a text message",
+      "webhookId": "3e1db22c-cd49-42bf-afd4-55a4efbaac2f",
+      "credentials": {
+        "telegramApi": {
+          "id": "NXFAPVmAeFODX25Q",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -688,
+        -144
+      ],
+      "id": "53f7e7f8-81d8-44dd-a23e-9a28d8b66077",
+      "name": "Telegram Trigger",
+      "webhookId": "4825449e-7b88-40e1-bd1f-28a9679a09d3",
+      "credentials": {
+        "telegramApi": {
+          "id": "NXFAPVmAeFODX25Q",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Update the sheet\ntask checked or not",
+        "height": 608,
+        "width": 400,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        -624
+      ],
+      "id": "5e479ad6-f790-4b4e-a356-171a46f963c8",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1fgclXB2kRdmicfOvOT87pFt8RW3T3NCkSST15YiyfIM",
+          "mode": "list",
+          "cachedResultName": "patients_meds",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fgclXB2kRdmicfOvOT87pFt8RW3T3NCkSST15YiyfIM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fgclXB2kRdmicfOvOT87pFt8RW3T3NCkSST15YiyfIM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $('Code in JavaScript2').item.json.Name }}",
+            "Age": "={{ $('Code in JavaScript2').item.json.Age }}",
+            "name_meds": "={{ $('Code in JavaScript2').item.json.Medication }}",
+            "dose": "={{ $('Code in JavaScript2').item.json.Dose }}",
+            "instrustions ": "={{ $('Code in JavaScript2').item.json.Instructions }}",
+            "Date": "={{ $json.currentDate }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Age",
+              "displayName": "Age",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "name_meds",
+              "displayName": "name_meds",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "dose",
+              "displayName": "dose",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "instrustions ",
+              "displayName": "instrustions ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Done",
+              "displayName": "Done",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1136,
+        -496
+      ],
+      "id": "b889f38b-530f-4514-9916-6e609f133555",
+      "name": "Append row in sheet",
+      "executeOnce": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "pugUN5zGR1nQBsll",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1fgclXB2kRdmicfOvOT87pFt8RW3T3NCkSST15YiyfIM",
+          "mode": "list",
+          "cachedResultName": "patients_meds",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fgclXB2kRdmicfOvOT87pFt8RW3T3NCkSST15YiyfIM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fgclXB2kRdmicfOvOT87pFt8RW3T3NCkSST15YiyfIM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $('Code in JavaScript3').item.json.Name }}",
+            "Age": "={{ $('Code in JavaScript3').item.json.Age }}",
+            "name_meds": "={{ $('Code in JavaScript3').item.json.Medication }}",
+            "dose": "={{ $('Code in JavaScript3').item.json.Dose }}",
+            "instrustions ": "={{ $('Code in JavaScript3').item.json.Instructions }}",
+            "Date": "={{ $json.currentDate }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Age",
+              "displayName": "Age",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "name_meds",
+              "displayName": "name_meds",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "dose",
+              "displayName": "dose",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "instrustions ",
+              "displayName": "instrustions ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Done",
+              "displayName": "Done",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1136,
+        -352
+      ],
+      "id": "d8d77be5-6f44-4cf5-8e1e-b37f3cab52d0",
+      "name": "Append row in sheet1",
+      "executeOnce": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "pugUN5zGR1nQBsll",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1fgclXB2kRdmicfOvOT87pFt8RW3T3NCkSST15YiyfIM",
+          "mode": "list",
+          "cachedResultName": "patients_meds",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fgclXB2kRdmicfOvOT87pFt8RW3T3NCkSST15YiyfIM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fgclXB2kRdmicfOvOT87pFt8RW3T3NCkSST15YiyfIM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $('Code in JavaScript1').item.json.Name }}",
+            "Age": "={{ $('Code in JavaScript1').item.json.Age }}",
+            "name_meds": "={{ $('Code in JavaScript1').item.json.Medication }}",
+            "dose": "={{ $('Code in JavaScript1').item.json.Dose }}",
+            "instrustions ": "={{ $('Code in JavaScript1').item.json.Instructions }}",
+            "Date": "={{ $json.currentDate }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Age",
+              "displayName": "Age",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "name_meds",
+              "displayName": "name_meds",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "dose",
+              "displayName": "dose",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "instrustions ",
+              "displayName": "instrustions ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Done",
+              "displayName": "Done",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1136,
+        -192
+      ],
+      "id": "50134cc9-e1e8-4426-8c33-7e340a8c1ca8",
+      "name": "Append row in sheet2",
+      "executeOnce": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "pugUN5zGR1nQBsll",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "timezone": "Africa/Algiers"
+        }
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        -1376,
+        -352
+      ],
+      "id": "e0bd1265-6dcd-4920-81f2-703dcf6cc600",
+      "name": "Date & Time1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const elders = [\n  {\n    name: \"John Smith\",\n    age: 78,\n    medications: [\n      { name_meds: \"Aspirin\", dose: \"100mg\", instructions: \"Take one tablet after breakfast\" },\n      { name_meds: \"Metformin\", dose: \"500mg\", instructions: \"Take one tablet after lunch\" },\n      { name_meds: \"Atorvastatin\", dose: \"20mg\", instructions: \"Take one tablet before bed\" }\n    ]\n  },\n  {\n    name: \"Mary Johnson\",\n    age: 82,\n    medications: [\n      { name_meds: \"Lisinopril\", dose: \"10mg\", instructions: \"Take one tablet before breakfast\" },\n      { name_meds: \"Amlodipine\", dose: \"5mg\", instructions: \"Take one tablet before bed\" },\n      { name_meds: \"Vitamin D\", dose: \"1000 IU\", instructions: \"Take after lunch\" }\n    ]\n  },\n  {\n    name: \"Ahmed Benali\",\n    age: 75,\n    medications: [\n      { name_meds: \"Omeprazole\", dose: \"20mg\", instructions: \"Take before breakfast\" },\n      { name_meds: \"Aspirin\", dose: \"75mg\", instructions: \"Take one tablet after lunch\" },\n      { name_meds: \"Atorvastatin\", dose: \"10mg\", instructions: \"Take one tablet before bed\" }\n    ]\n  }\n];\n\n// Flatten: one output per medication\nconst rows = [];\n\nfor (const elder of elders) {\n  for (const med of elder.medications) {\n    rows.push({\n      json: {\n        Name: elder.name,\n        Age: elder.age,\n        Medication: med.name_meds,\n        Dose: med.dose,\n        Instructions: med.instructions,\n        Status: \"unchecked\"\n      }\n    });\n  }\n}\n\nreturn rows;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1792,
+        -192
+      ],
+      "id": "98b79c99-052b-4a86-9173-4a77b8333078",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "options": {
+          "timezone": "Africa/Algiers"
+        }
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        -1376,
+        -496
+      ],
+      "id": "abef3b7b-4109-4659-adbe-ce2f67030e9d",
+      "name": "Date & Time"
+    },
+    {
+      "parameters": {
+        "options": {
+          "timezone": "Africa/Algiers"
+        }
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        -1376,
+        -192
+      ],
+      "id": "49314e0b-66cc-4526-a23d-85c84bdded9a",
+      "name": "Date & Time2"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 12
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1984,
+        -352
+      ],
+      "id": "2e8ac539-b5b2-4005-9947-eb888ef8df0b",
+      "name": "LUNCH"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 20
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1984,
+        -192
+      ],
+      "id": "61f77052-ea27-4d26-b7f8-4692f14cd002",
+      "name": "DINNER"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1984,
+        -496
+      ],
+      "id": "543ce5f2-b18b-4802-8971-623568d30308",
+      "name": "BREAKFAST"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1fgclXB2kRdmicfOvOT87pFt8RW3T3NCkSST15YiyfIM",
+          "mode": "list",
+          "cachedResultName": "patients_meds",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fgclXB2kRdmicfOvOT87pFt8RW3T3NCkSST15YiyfIM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fgclXB2kRdmicfOvOT87pFt8RW3T3NCkSST15YiyfIM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Done": "YES",
+            "Date": "={{ $json.currentDate }}"
+          },
+          "matchingColumns": [
+            "Date"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Age",
+              "displayName": "Age",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "name_meds",
+              "displayName": "name_meds",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "dose",
+              "displayName": "dose",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "instrustions ",
+              "displayName": "instrustions ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Done",
+              "displayName": "Done",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -240,
+        -512
+      ],
+      "id": "eaae2b7a-edb4-4806-90a2-d20a27f3ef10",
+      "name": "Update row in sheet",
+      "executeOnce": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "pugUN5zGR1nQBsll",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const elders = [\n  {\n    name: \"John Smith\",\n    age: 78,\n    medications: [\n      { name_meds: \"Aspirin\", dose: \"100mg\", instructions: \"Take one tablet after breakfast\" },\n      { name_meds: \"Metformin\", dose: \"500mg\", instructions: \"Take one tablet after lunch\" },\n      { name_meds: \"Atorvastatin\", dose: \"20mg\", instructions: \"Take one tablet before bed\" }\n    ]\n  },\n  {\n    name: \"Mary Johnson\",\n    age: 82,\n    medications: [\n      { name_meds: \"Lisinopril\", dose: \"10mg\", instructions: \"Take one tablet before breakfast\" },\n      { name_meds: \"Amlodipine\", dose: \"5mg\", instructions: \"Take one tablet before bed\" },\n      { name_meds: \"Vitamin D\", dose: \"1000 IU\", instructions: \"Take after lunch\" }\n    ]\n  },\n  {\n    name: \"Ahmed Benali\",\n    age: 75,\n    medications: [\n      { name_meds: \"Omeprazole\", dose: \"20mg\", instructions: \"Take before breakfast\" },\n      { name_meds: \"Aspirin\", dose: \"75mg\", instructions: \"Take one tablet after lunch\" },\n      { name_meds: \"Atorvastatin\", dose: \"10mg\", instructions: \"Take one tablet before bed\" }\n    ]\n  }\n];\n\n// Flatten: one output per medication\nconst rows = [];\n\nfor (const elder of elders) {\n  for (const med of elder.medications) {\n    rows.push({\n      json: {\n        Name: elder.name,\n        Age: elder.age,\n        Medication: med.name_meds,\n        Dose: med.dose,\n        Instructions: med.instructions,\n        Status: \"unchecked\"\n      }\n    });\n  }\n}\n\nreturn rows;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1792,
+        -496
+      ],
+      "id": "36aa8a27-08f7-4f43-b34d-98aabd4aef80",
+      "name": "Code in JavaScript2"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript3": {
+      "main": [
+        [
+          {
+            "node": "Filter1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Date & Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter1": {
+      "main": [
+        [
+          {
+            "node": "Date & Time1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter2": {
+      "main": [
+        [
+          {
+            "node": "Date & Time2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        []
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet2": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date & Time1": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update row in sheet1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Filter2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date & Time2": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update row in sheet1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date & Time": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update row in sheet1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LUNCH": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DINNER": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BREAKFAST": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0a38bc54-96f0-4935-a2be-979b7a6b57fd",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0d36ecd75d9f48908c2d053069865919698b5d2342e80783bce3ed2071146d79"
+  },
+  "id": "m1VYedkDR5rnWTAS",
+  "tags": []
+}
