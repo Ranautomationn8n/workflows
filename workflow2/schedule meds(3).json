@@ -159,7 +159,7 @@
       "executeOnce": false,
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "pugUN5zGR1nQBsll",
+          "id": "your id",
           "name": "Google Sheets account"
         }
       }
