@@ -2,7 +2,7 @@
 
 This project is a fully automated appointment-booking system built in n8n. It streamlines how clinics handle patient requests for medical exams, ensuring accuracy, speed, and minimal manual work.
 
-![screenshot](./workflow3/Screenshot2025-10-23151437.png)
+![screenshot](./Screenshot2025-10-23151437.png)
 
 📌 Overview
 
