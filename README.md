@@ -1,5 +1,4 @@
-# workflows
-🎓 School Assistant Automation Workflow
+# 🎓 School Assistant Automation Workflow
 
 This project automates the responsibilities of a human school assistant.
 It handles every step of the student-processing workflow, including:
