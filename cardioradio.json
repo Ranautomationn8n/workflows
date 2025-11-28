@@ -1,0 +1,378 @@
+{
+  "name": "My workflow 9",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": " Consultation Appointement ",
+        "formDescription": "Welcome! Kindly provide your information below",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Age",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Phone number",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "consultation type",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Echography"
+                  },
+                  {
+                    "option": "Radiology"
+                  },
+                  {
+                    "option": "Echocardiogram"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "appointement date",
+              "fieldType": "date",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "appointement date (please write the day in letters)",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "email",
+              "fieldType": "email",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e44520ac-667f-4a89-a91d-86bf41f7192a",
+      "name": "On form submission",
+      "webhookId": "c264142e-a592-415d-991e-af1eef3ba6a0",
+      "notes": "write the date on this form Thursday, October 23, 2025"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1hSaObxV_6Tsw6KHHafpd2mmNvYXL89HMdwtzk_5IrpM",
+          "mode": "list",
+          "cachedResultName": "Patients",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hSaObxV_6Tsw6KHHafpd2mmNvYXL89HMdwtzk_5IrpM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "p1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hSaObxV_6Tsw6KHHafpd2mmNvYXL89HMdwtzk_5IrpM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.Name }}",
+            "Age": "={{ $json.Age }}",
+            "consultation": "={{ $json['consultation type'] }}",
+            "PN": "={{ $json['Phone number'] }}",
+            "ID": "={{ $json.submittedAt }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Age",
+              "displayName": "Age",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "PN",
+              "displayName": "PN",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "consultation",
+              "displayName": "consultation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        192,
+        0
+      ],
+      "id": "03ada9ed-491e-41cb-a04f-3c609d756a07",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "7D3vE3tZFkWxvU9A",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "raniahamadache1@gmail.com",
+          "mode": "list",
+          "cachedResultName": "raniahamadache1@gmail.com"
+        },
+        "start": "={{ $('On form submission').item.json['appointement date'] }}",
+        "end": "={{ new Date(new Date($('On form submission').item.json['appointement date']).setDate(new Date($('On form submission').item.json['appointement date']).getDate() + 1)).toISOString().split('T')[0] }}\n",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        896,
+        -16
+      ],
+      "id": "e2ffd8bc-07d3-4c4a-b761-3ebaed6b1796",
+      "name": "Create an event",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "GajZHytdV4aINUpw",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e260e276-c271-425a-8998-69bf5347cbce",
+              "leftValue": "={{ $json.consultation }}",
+              "rightValue": "Echocardiogram",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        448,
+        0
+      ],
+      "id": "59bba6ed-e4e3-4a3d-9bfc-6bc2332f2bab",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sendTo": "=raniahamadache1@gmail.com",
+        "subject": " Consultation Appointement",
+        "emailType": "text",
+        "message": "=Dear {{ $('On form submission').item.json.Name }},\nThank you for scheduling an appointment for {{ $('On form submission').item.json['consultation type'] }}.\nWe regret to inform you that echocardiograms are only performed on Saturday and Sunday.\nPlease go to the attached form and reschedule your appointment based on your availability.\nBest regards.\n\nhttps://raniahamadache.app.n8n.cloud/form-test/c264142e-a592-415d-991e-af1eef3ba6a0",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        912,
+        272
+      ],
+      "id": "32a026f2-b428-4c19-92b7-51467db007cb",
+      "name": "Send a message",
+      "webhookId": "17e9ef9c-663d-4815-b96f-27fe0f7d62b2",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "86SB0J2QmRGLH4k7",
+          "name": "Gmail account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e260e276-c271-425a-8998-69bf5347cbce",
+              "leftValue": "={{ $('On form submission').item.json['appointement date (please write the day in letters)'] }}",
+              "rightValue": "Saturday",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "eb512487-7279-4142-8173-d05bd707cbbc",
+              "leftValue": "={{ $('On form submission').item.json['appointement date (please write the day in letters)'] }}",
+              "rightValue": "Sunday",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        608,
+        192
+      ],
+      "id": "09d19b6c-f2f0-4705-83f1-50b9ae2f735d",
+      "name": "If1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an event": {
+      "main": [
+        []
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Create an event",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        []
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Create an event",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "cbe7be82-d367-49ac-8bae-631425baddf7",
+  "meta": {
+    "instanceId": "a3c6780a03e00a8c1c328d456f7104c048bbdd16f0f5885182ea64b51c49a10b"
+  },
+  "id": "COQ4GgeB0RP8nqXr",
+  "tags": []
+}
