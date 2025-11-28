@@ -5,7 +5,7 @@ Florence is an automated system I built to help nurses manage patient medication
 
 Nurses work under pressure, and keeping track of every patient’s medication schedule can be overwhelming. Florence solves that by handling reminders, tracking, and documentation — automatically.
 
-![screenshot](./workflow2/Screenshot%202025-11-01%20192455.png)
+![screenshot](./workflow2/Screenshot2025-11-01192455.png)
 
 
 🚑 What Florence Does
