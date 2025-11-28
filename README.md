@@ -1,4 +1,8 @@
 # 🎓 School Assistant Automation Workflow
+## 📸 Screenshot
+
+![School Workflow](./the%20school%20workflow.png)
+
 
 This project automates the responsibilities of a human school assistant.
 It handles every step of the student-processing workflow, including:
