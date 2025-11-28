@@ -1,6 +1,8 @@
 # ✨ Meet Sadiki — Your Personal AI Companion on Telegram ✨
 
-![Sadiki Screenshot](images/Screenshot20%2025-11-26120%449.png)
+## 📸 Screenshot
+
+![Leads Workflow](./Screenshot%202025-11-26%20120449.png)
 
 
 Sadiki is a custom-built AI Telegram chatbot designed to offer emotional support, deep listening, and judgment-free conversations — available anytime you need someone to talk to.
