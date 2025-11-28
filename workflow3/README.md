@@ -2,6 +2,8 @@
 
 This project is a fully automated appointment-booking system built in n8n. It streamlines how clinics handle patient requests for medical exams, ensuring accuracy, speed, and minimal manual work.
 
+![screenshot](./workflow3/Screenshot2025-10-23151437.png)
+
 📌 Overview
 
 The workflow automates the entire process of collecting patient information, organizing appointments, and scheduling events based on exam type. No AI agents were used — everything is built with standard n8n nodes.
