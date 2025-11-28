@@ -16,13 +16,8 @@
       ],
       "id": "c436fe04-05a6-4d3e-a6d5-329c07538b83",
       "name": "Telegram Trigger",
-      "webhookId": "5148cd56-3faf-4ccc-8ce3-e8773f824403",
-      "credentials": {
-        "telegramApi": {
-          "id": "NXFAPVmAeFODX25Q",
-          "name": "Telegram account"
-        }
-      }
+      "webhookId": "",
+      "credentials": {}
     },
     {
       "parameters": {
@@ -39,12 +34,7 @@
       ],
       "id": "c618ca07-bae8-4c43-b643-87918dbb5710",
       "name": "Mistral Cloud Chat Model",
-      "credentials": {
-        "mistralCloudApi": {
-          "id": "WMTJTBhbEVq0r8sJ",
-          "name": "Mistral Cloud account 3"
-        }
-      }
+      "credentials": {}
     },
     {
       "parameters": {
@@ -89,13 +79,8 @@
       ],
       "id": "4ba11f4f-37be-4384-963d-fe7f819fc3a2",
       "name": "Send a text message",
-      "webhookId": "243af749-ff26-4793-acb4-f5010489033c",
-      "credentials": {
-        "telegramApi": {
-          "id": "NXFAPVmAeFODX25Q",
-          "name": "Telegram account"
-        }
-      }
+      "webhookId": "",
+      "credentials": {}
     },
     {
       "parameters": {
@@ -164,12 +149,7 @@
       ],
       "id": "52e15a33-f634-4bc2-b1b5-8c1812dd3e4d",
       "name": "Transcribe audio or video",
-      "credentials": {
-        "elevenLabsApi": {
-          "id": "nIYRkF5uswvcxi1x",
-          "name": "ElevenLabs account"
-        }
-      }
+      "credentials": {}
     },
     {
       "parameters": {
@@ -185,13 +165,8 @@
       ],
       "id": "e2fca591-094a-4cb0-b235-cf84b1efae05",
       "name": "Get a file",
-      "webhookId": "7f6d7127-645f-4718-bdef-7d0064c6b4b2",
-      "credentials": {
-        "telegramApi": {
-          "id": "NXFAPVmAeFODX25Q",
-          "name": "Telegram account"
-        }
-      }
+      "webhookId": "",
+      "credentials": {}
     },
     {
       "parameters": {},
