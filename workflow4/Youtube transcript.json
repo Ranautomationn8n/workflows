@@ -12,10 +12,7 @@
       },
       "type": "n8n-nodes-base.rssFeedReadTrigger",
       "typeVersion": 1,
-      "position": [
-        -368,
-        -192
-      ],
+      "position": [-368, -192],
       "id": "260a0820-9bd3-4e44-9f6c-35cb59243d8b",
       "name": "World  science festival YTB"
     },
@@ -30,10 +27,7 @@
       },
       "type": "n8n-nodes-base.rssFeedReadTrigger",
       "typeVersion": 1,
-      "position": [
-        -368,
-        0
-      ],
+      "position": [-368, 0],
       "id": "26d1e38e-2bf7-489e-a7db-c88d4c8f1ce8",
       "name": "ARVIN ASH YTB"
     },
@@ -71,10 +65,7 @@
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
-      "position": [
-        -112,
-        -112
-      ],
+      "position": [-112, -112],
       "id": "461bc41d-0259-4f27-b8bb-e443626d10a0",
       "name": "Edit Fields"
     },
@@ -83,10 +74,10 @@
         "operation": "get",
         "dataTableId": {
           "__rl": true,
-          "value": "1YHAHy0pjjFLetuO",
+          "value": "your_datatable_id",
           "mode": "list",
           "cachedResultName": "Ytb data",
-          "cachedResultUrl": "/projects/NZAZjdHWkKetbJAb/datatables/1YHAHy0pjjFLetuO"
+          "cachedResultUrl": "/projects/your_project_id/datatables/your_datatable_id"
         },
         "matchType": "allConditions",
         "filters": {
@@ -100,10 +91,7 @@
       },
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
-      "position": [
-        96,
-        -112
-      ],
+      "position": [96, -112],
       "id": "afc9451e-6341-4076-bd1b-09ca72edf912",
       "name": "filter the data",
       "alwaysOutputData": true
@@ -135,10 +123,7 @@
       },
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
-      "position": [
-        304,
-        -112
-      ],
+      "position": [304, -112],
       "id": "e70c67e7-d8c8-4648-8259-a81c309247b5",
       "name": "If"
     },
@@ -146,10 +131,10 @@
       "parameters": {
         "dataTableId": {
           "__rl": true,
-          "value": "1YHAHy0pjjFLetuO",
+          "value": "your_datatable_id",
           "mode": "list",
           "cachedResultName": "Ytb data",
-          "cachedResultUrl": "/projects/NZAZjdHWkKetbJAb/datatables/1YHAHy0pjjFLetuO"
+          "cachedResultUrl": "/projects/your_project_id/datatables/your_datatable_id"
         },
         "columns": {
           "mappingMode": "defineBelow",
@@ -164,78 +149,40 @@
             {
               "id": "Title",
               "displayName": "Title",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "readOnly": false,
-              "removed": false
+              "type": "string"
             },
             {
               "id": "url",
               "displayName": "url",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "readOnly": false,
-              "removed": false
+              "type": "string"
             },
             {
               "id": "author",
               "displayName": "author",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "readOnly": false,
-              "removed": false
+              "type": "string"
             },
             {
               "id": "publish_date",
               "displayName": "publish_date",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "readOnly": false,
-              "removed": false
-            },
-            {
-              "id": "Transcript",
-              "displayName": "Transcript",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "readOnly": false,
-              "removed": true
+              "type": "string"
             }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
+          ]
         },
         "options": {}
       },
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
-      "position": [
-        512,
-        -16
-      ],
+      "position": [512, -16],
       "id": "b0f51256-b88b-4f0e-a26e-e59859919a7e",
       "name": "Insert row"
     },
     {
       "parameters": {
-        "jsCode": "// Get the YouTube URL from input\nconst youtubeUrl = $json[\"url\"] || \"https://www.youtube.com/shorts/s3ktIloPaB4\";\n\n// Try to extract video ID from different URL formats\nlet videoId;\n\n// Match normal YouTube URLs (watch?v=ID)\nconst matchNormal = youtubeUrl.match(/v=([^&]+)/);\n// Match Shorts URLs (/shorts/ID)\nconst matchShorts = youtubeUrl.match(/shorts\\/([^?]+)/);\n\nif (matchNormal) {\n  videoId = matchNormal[1];\n} else if (matchShorts) {\n  videoId = matchShorts[1];\n} else {\n  // If it's already an ID or unknown format, use it directly\n  videoId = youtubeUrl;\n}\n\nreturn [{ videoId }];\n"
+        "jsCode": "// Extract video ID…"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [
-        720,
-        -16
-      ],
+      "position": [720, -16],
       "id": "6f2b7a24-1aba-40ce-b3c4-9012bfff634d",
       "name": "extract ID from Url"
     },
@@ -246,29 +193,23 @@
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatMistralCloud",
       "typeVersion": 1,
-      "position": [
-        1152,
-        240
-      ],
+      "position": [1152, 240],
       "id": "58af8359-10ce-43cf-8ee4-577a21501a58",
       "name": "Mistral Cloud Chat Model",
       "credentials": {
         "mistralCloudApi": {
-          "id": "WMTJTBhbEVq0r8sJ",
-          "name": "Mistral Cloud account 3"
+          "id": "your_id",
+          "name": "your_mistral_cloud_credential"
         }
       }
     },
     {
       "parameters": {
-        "jsonSchemaExample": "{\n  \"topic_summary\": \"The video explains how gravitational waves are detected using interferometry.\",\n  \"physics_relevance\": \"High\",\n  \"explanation_quality\": \"Excellent\",\n  \"educational_value\": \"High\",\n  \"final_verdict\": \"Publish as article\",\n  \"reason\": \"The content is scientifically accurate, clearly explained, and offers educational value suitable for a physics-focused article.\"\n}\n"
+        "jsonSchemaExample": "{...}"
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
-      "position": [
-        1376,
-        192
-      ],
+      "position": [1376, 192],
       "id": "687b4c01-8349-4d43-8fd1-3b7229c5220e",
       "name": "Structured Output Parser"
     },
@@ -278,50 +219,39 @@
         "text": "={{ $json.title }}\n{{ $json.description }}\n{{ $json.transcriptionAsText }}",
         "hasOutputParser": true,
         "options": {
-          "systemMessage": "You are a YouTube Transcript Evaluation Agent specialized in physics-related educational content.\nYour task is to evaluate both the video description and transcript to decide whether the video is suitable to be repurposed into a written article.\nYour Inputs:\n\nYou will receive:\n\nVideo Description: The summary or text under the video.\n\nVideo Transcript: The full text spoken in the video.\n\nYour Objectives:\n\nPhysics Relevance Check\n\nDetermine if the video’s topic is about physics or its subfields (e.g., quantum mechanics, relativity, classical mechanics, optics, thermodynamics, electromagnetism, astrophysics, particle physics, etc.).\n\nIgnore videos that are only loosely scientific, pseudoscientific, or unrelated to physics.\n\nQuality & Clarity Evaluation\n\nAssess whether the explanations are clear, accurate, and structured.\n\nIdentify if the transcript conveys logical flow, educational value, and depth of understanding.\n\nCheck if complex topics are explained in an understandable yet accurate way.\n\nEducational Value Assessment\n\nDetermine if the content can teach or inspire readers.\n\nConsider whether it’s suitable to transform into a physics article for a general audience or academic blog.\n\nFinal Decision\n\n✅ Publish as article → Strong physics content, accurate, clear, and educational.\n\n⚠️ Needs revision → Physics topic present but unclear or partially incorrect explanations.\n\n❌ Do not publish → Off-topic, inaccurate, low educational value, or poorly structured.\n\n🧾 Output Format:\n\nProvide your answer in the following structured format in JSON:\n\n📘 Topic Summary: [Briefly describe what the video is about in 1–2 sentences.]\n\n🔬 Physics Relevance: [High / Medium / Low]  \n🧩 Explanation Quality: [Excellent / Good / Fair / Poor]  \n🎓 Educational Value: [High / Medium / Low]\n\n✅ Final Verdict: [Publish as article / Needs revision / Do not publish]\nReason: [1–3 sentences explaining your decision, referencing clarity, accuracy, or relevance.]"
+          "systemMessage": "Your system prompt here..."
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.2,
-      "position": [
-        1136,
-        -16
-      ],
+      "position": [1136, -16],
       "id": "de9d6c91-f055-42ec-9ffc-e9bafb554679",
       "name": "YTB evaluator Agent"
     },
     {
       "parameters": {
-        "sendTo": "raniahamadache1@gmail.com",
+        "sendTo": "your_email@example.com",
         "subject": "Youtube transcript review",
         "emailType": "text",
-        "message": "=Dear Rania,\nAfter reviewing the video published  {{ $('Insert row').item.json.publish_date }} this is the final result:\nTopic summmary: {{ $('YTB evaluator Agent').item.json.output.topic_summary }}\nPhysics relevance: {{ $('YTB evaluator Agent').item.json.output.physics_relevance }}\neducational value: {{ $('YTB evaluator Agent').item.json.output.educational_value }}\nfinal verdict: {{ $('YTB evaluator Agent').item.json.output.final_verdict }}\nReason: {{ $('YTB evaluator Agent').item.json.output.reason }}\n\nGreetings",
-        "options": {}
+        "message": "=Dear User..."
       },
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
-      "position": [
-        1952,
-        144
-      ],
+      "position": [1952, 144],
       "id": "805b19aa-04ea-4d61-b4e6-eb9dd23651e4",
       "name": "Send a message",
       "webhookId": "5873cb92-bafb-46d1-baa6-3fee1138e2dc",
       "credentials": {
         "gmailOAuth2": {
-          "id": "Ys74NdTTYNcKbLpd",
-          "name": "Gmail account"
+          "id": "your_id",
+          "name": "your_gmail_credential"
         }
       }
     },
     {
       "parameters": {},
       "type": "n8n-nodes-base.noOp",
-      "typeVersion": 1,
-      "position": [
-        512,
-        -224
-      ],
+      "position": [512, -224],
       "id": "12c7a50c-99f6-4865-863d-7bd2f20a325a",
       "name": "No Operation, do nothing"
     },
@@ -331,332 +261,25 @@
         "sendQuery": true,
         "queryParameters": {
           "parameters": [
-            {
-              "name": "video_id",
-              "value": "={{ $json.videoId }}"
-            },
-            {
-              "name": "lang",
-              "value": "en"
-            }
+            { "name": "video_id", "value": "={{ $json.videoId }}" },
+            { "name": "lang", "value": "en" }
           ]
         },
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
-            {
-              "name": "x-rapidapi-host",
-              "value": "youtube-transcriptor.p.rapidapi.com"
-            },
-            {
-              "name": "x-rapidapi-key",
-              "value": "d419251022msh2e6298d7b411f4cp123ce1jsn0dc23fad6e69"
-            }
+            { "name": "x-rapidapi-host", "value": "youtube-transcriptor.p.rapidapi.com" },
+            { "name": "x-rapidapi-key", "value": "your_rapidapi_key" }
           ]
-        },
-        "options": {}
+        }
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [
-        960,
-        -16
-      ],
+      "position": [960, -16],
       "id": "2a61dc4a-fc4e-421d-8079-292e1fd32e68",
-      "name": "RapidApi YTB  transcript1",
-      "retryOnFail": true,
-      "waitBetweenTries": 5000
-    },
-    {
-      "parameters": {
-        "person": "0Ej9LhfzfG",
-        "text": "={{ $json.text }}",
-        "additionalFields": {}
-      },
-      "type": "n8n-nodes-base.linkedIn",
-      "typeVersion": 1,
-      "position": [
-        2208,
-        -160
-      ],
-      "id": "758b24bd-8926-43f2-a584-8849385f3c12",
-      "name": "Create a post",
-      "credentials": {
-        "linkedInOAuth2Api": {
-          "id": "kp9ES0xDWPofcn68",
-          "name": "LinkedIn account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "promptType": "define",
-        "text": "={{ $('YTB evaluator Agent').item.json.output.topic_summary }}",
-        "messages": {
-          "messageValues": [
-            {
-              "message": "You are a professional science writer who rewrites short summaries into engaging mini-articles about physics.\n\nWrite a clear, educational article based on the summary provided.\n\nCRITICAL RULES:\n1. The final text MUST be 2999 characters or fewer (counting letters, spaces, punctuation, and emojis).\n2. After writing, check your own output length.\n3. If it exceeds 2999 characters, shorten it until it fits.\n4. Return ONLY the final article text — no explanations or notes.\n\nTone: scientific, engaging, accurate, and suitable for publication on a physics blog.\n"
-            }
-          ]
-        },
-        "batching": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.chainLlm",
-      "typeVersion": 1.7,
-      "position": [
-        1728,
-        -160
-      ],
-      "id": "d4f9c7d9-1ca2-482c-b87c-bcdd2af864a1",
-      "name": "Article writer",
-      "retryOnFail": false,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "04872932-5c6a-40ea-af75-95b32567d94a",
-              "leftValue": "={{ $json.output.physics_relevance }}",
-              "rightValue": "High",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        1472,
-        -16
-      ],
-      "id": "48dc826f-3ca7-41b0-9b9f-fe272c656a7f",
-      "name": "publish or not"
-    },
-    {
-      "parameters": {
-        "jsCode": "return items.map(item => {\n  let text = item.json.text;\n\n  // Remove hidden/extra Unicode characters\n  text = text.replace(/[\\u200B-\\u200D\\uFEFF]/g, '');\n\n  // Remove Markdown formatting (**bold**, *italic*, # headings, etc.)\n  text = text.replace(/(\\*\\*|\\*|__|_|\\~\\~|`|###|##|#)/g, '');\n\n  // Normalize spaces and newlines\n  text = text.replace(/\\s+/g, ' ').trim();\n\n  // Trim to LinkedIn max length\n  const maxLength = 3000;\n  if (text.length > maxLength) text = text.substring(0, maxLength);\n\n  return {\n    json: {\n      text: text,\n      original_length: item.json.text.length,\n      cleaned_length: text.length\n    }\n  };\n});\n"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        2016,
-        -160
-      ],
-      "id": "98116c3f-b380-4dc2-9863-02ce7a4d787c",
-      "name": "Character Trimming+ plain text and json format"
+      "name": "RapidApi YTB transcript1",
+      "retryOnFail": true
     }
-  ],
-  "pinData": {},
-  "connections": {
-    "World  science festival YTB": {
-      "main": [
-        [
-          {
-            "node": "Edit Fields",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "ARVIN ASH YTB": {
-      "main": [
-        [
-          {
-            "node": "Edit Fields",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Edit Fields": {
-      "main": [
-        [
-          {
-            "node": "filter the data",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "filter the data": {
-      "main": [
-        [
-          {
-            "node": "If",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "If": {
-      "main": [
-        [
-          {
-            "node": "No Operation, do nothing",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Insert row",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Insert row": {
-      "main": [
-        [
-          {
-            "node": "extract ID from Url",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "extract ID from Url": {
-      "main": [
-        [
-          {
-            "node": "RapidApi YTB  transcript1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Mistral Cloud Chat Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "YTB evaluator Agent",
-            "type": "ai_languageModel",
-            "index": 0
-          },
-          {
-            "node": "Article writer",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Structured Output Parser": {
-      "ai_outputParser": [
-        [
-          {
-            "node": "YTB evaluator Agent",
-            "type": "ai_outputParser",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "YTB evaluator Agent": {
-      "main": [
-        [
-          {
-            "node": "publish or not",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "RapidApi YTB  transcript1": {
-      "main": [
-        [
-          {
-            "node": "YTB evaluator Agent",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Create a post": {
-      "main": [
-        [
-          {
-            "node": "Send a message",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Article writer": {
-      "main": [
-        [
-          {
-            "node": "Character Trimming+ plain text and json format",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        []
-      ]
-    },
-    "publish or not": {
-      "main": [
-        [
-          {
-            "node": "Article writer",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Send a message",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Character Trimming+ plain text and json format": {
-      "main": [
-        [
-          {
-            "node": "Create a post",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    }
-  },
-  "active": false,
-  "settings": {
-    "executionOrder": "v1"
-  },
-  "versionId": "b162879e-e203-41a0-9d68-529452c78371",
-  "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "0d36ecd75d9f48908c2d053069865919698b5d2342e80783bce3ed2071146d79"
-  },
-  "id": "Rig7tAt4dAtjfByR",
-  "tags": []
+  ]
 }
+
