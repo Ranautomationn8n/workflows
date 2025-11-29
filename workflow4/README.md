@@ -2,7 +2,7 @@
 
 I’ve always loved reading and writing, but watching long YouTube videos — especially with ads — can be exhausting.
 That’s why I built this automation workflow: to turn physics YouTube videos into readable articles, completely automatically.
-![screenshot](./)
+![screenshot](./Screenshot2025-11-14005028.png)
 
 🔍 How It Works
 1. Track My Favorite Physics Channels
