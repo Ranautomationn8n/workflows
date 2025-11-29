@@ -4,7 +4,7 @@ One of my first AI agent automations — simple idea, powerful workflow.
 Hi everyone!
 This project showcases one of my first automations built with AI agents. The idea behind it is simple, but the workflow itself relies on several nodes working together with careful setup. Here’s a clear breakdown of how everything works:
 
-![screenshot](./)
+![screenshot](./updatetherowsz.png)
 
 🚀 What This Automation Does
 
