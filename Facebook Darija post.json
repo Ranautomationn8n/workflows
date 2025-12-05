@@ -1,0 +1,341 @@
+{
+  "name": "Facebook Darija post",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -624,
+        32
+      ],
+      "id": "1f34595f-c298-4d6d-85d1-fe4ed2850aa7",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json['Type1 '] }} \n{{ $json.Type2 }}\n{{ $json.Type3 }}",
+        "options": {
+          "systemMessage": "=You are an intelligent internet researcher.\n\nYour task is to search the internet for the newest and most relevant news about anyone of these topics:{{ $json['Type1 '] }}, {{ $json.Type2 }},    {{ $json.Type3 }}.\n\nYou must:\n\nFind 3 recent news articles related to the topic\n\nFor each article, also find 1–2 images that match the news\n\nProvide the source links for both the article and the images\n\nReturn the final result in clean, organized  structure\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        -240,
+        32
+      ],
+      "id": "1aadca2b-1d2a-41b8-bb2d-9b3afc4c263a",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6f9a303a-1563-40dc-a2ad-271f94ced9c9",
+              "name": "Type1 ",
+              "value": "AI models",
+              "type": "string"
+            },
+            {
+              "id": "ade47880-fe4e-4154-a35b-800d2174ec94",
+              "name": "Type2",
+              "value": "LLM, ",
+              "type": "string"
+            },
+            {
+              "id": "1d9ec77e-d8c5-4100-8ef7-525da7084bfc",
+              "name": "Type3",
+              "value": "N8N",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -416,
+        32
+      ],
+      "id": "bfb02877-01fc-4b63-811a-6f77d96b6d95",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json['Type1 '] }}\n{{ $json.Type2 }}\n{{ $json.Type3 }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -240,
+        256
+      ],
+      "id": "36c818ee-58d9-42ac-a468-c2e4ec56e3db",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "google_news",
+        "q": "={{ $json['Type1 '] }}\n{{ $json.Type2 }}\n{{ $json.Type3 }}",
+        "additionalFields": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-serpapi.serpApiTool",
+      "typeVersion": 1,
+      "position": [
+        -64,
+        240
+      ],
+      "id": "09247b44-1fae-4228-9c8a-274290c49484",
+      "name": "Google_news search in SerpApi",
+      "credentials": {
+        "serpApi": {
+          "id": "1px5XpeK3GNQ1Cbc",
+          "name": "SerpAPI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"post\": \"here is the post written in darija\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        80,
+        80
+      ],
+      "id": "c36a608c-6ecf-4f93-a8ed-b0762271eee4",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "operation": "google_images",
+        "q": "={{ $json['Type1 '] }}\n{{ $json.Type2 }}\n{{ $json.Type3 }}",
+        "additionalFields": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-serpapi.serpApiTool",
+      "typeVersion": 1,
+      "position": [
+        80,
+        256
+      ],
+      "id": "9c86ec4d-45d4-4b99-b74a-36e118123161",
+      "name": "Google_images search in SerpApi",
+      "credentials": {
+        "serpApi": {
+          "id": "1px5XpeK3GNQ1Cbc",
+          "name": "SerpAPI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v18.0/862780420256563/feed",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "message",
+              "value": "={{ $json.output.post }}"
+            },
+            {
+              "name": "access_token",
+              "value": "EAAJ2qk1SNCUBQKyQ3KS2nSKKZAGh2qF3gxLanc2XaUeWhfzgY2ZCekv6N7XuQu09CdfMazDrnJ2ZChpOfR6HSGbZCjHWAS0yNFvZAiUys2Fou9J7qWl62WZBxiHTIHNwTZBZB0ZAFZBcwxQ5LG70ssQgRzzMwi60gX7B97siZCWt9W2U5FZBA9xYthLKZBoCywAHCuH1JGmEJ"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        96,
+        -112
+      ],
+      "id": "75bc7838-c3ae-47d1-be17-ffe703d1c158",
+      "name": "Post on Facebook"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.output }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=You are an intelligent news searcher. Your job is to read for the newest and most relevant news:\n\nand then  write a Facebook  post about it.  The post must: \n\nUse very simple and easy language.\n\ncheck for punctuation.\n\nclean it and read it before sending it.\n\nBe written in Algerian Arabic dialect (derja) written in strictly in arabic.\n\nwatch for grammar and do not confuse algerian dialect with morrocan dialect.\n\nInclude emojis, examples, and light jokes  Be fun, engaging, and easy to read.\nOUTPUT IN JSON."
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -240,
+        -112
+      ],
+      "id": "e5d97d86-428a-495d-a102-ed34f0fab107",
+      "name": "summary and translation"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-20b:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        240
+      ],
+      "id": "adcc2099-c168-43d2-8c5c-18c6eb17b31f",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "z7gl6rYf6nMwRlpw",
+          "name": "OpenRouter account 4"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google_news search in SerpApi": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "summary and translation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "summary and translation",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google_images search in SerpApi": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post on Facebook": {
+      "main": [
+        []
+      ]
+    },
+    "summary and translation": {
+      "main": [
+        [
+          {
+            "node": "Post on Facebook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "summary and translation",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3a7ee467-562a-44d0-a056-918a63e39a3f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0d36ecd75d9f48908c2d053069865919698b5d2342e80783bce3ed2071146d79"
+  },
+  "id": "ZrTDcC9qWYcF4Qh5",
+  "tags": []
+}
